@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var http = require('http');
 
 
 /* GET home page. */
@@ -8,39 +9,130 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/HeartRate',function(req, res, next) {
-    res.render('HeartRate', { title: 'Heart Rate' });
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=pulse&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+            var hrData = reqBody.measurements;
+            console.log(hrData);
+            res.render('HeartRate', { title: 'Heart Rate', plotData:hrData});
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+
+
 });
 
 router.get('/Weight',function(req, res, next) {
-    res.render('Weight', { title: 'Weight' });
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=weight&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+            var wData = reqBody.measurements;
+            console.log(wData);
+            res.render('Weight', { title: 'Weight' , plotData:wData});
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+
+
 });
 
 router.get('/BloodPressure',function(req, res, next) {
-    res.render('BloodPressure', { title: 'Blood Pressure' });
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=blood_pressure&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+            var bpData = reqBody.measurements;
+            console.log(bpData);
+            res.render('BloodPressure', { title: 'Blood Pressure' , plotData:bpData});
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+
+
 });
 
 
 router.get('/Reminders',function(req, res, next) {
-    var rems = [
-        {
-            id: 1 ,
-            text: "Please take your blood pressure",
-            validated: false
-        },
-        {
-            id: 2,
-            text: "Don't forget to take your pills.",
-            validated: true
-        },
-        {
-            id: 3,
-            text: "You have an appointment with the doctor.",
-            validated: false
-        }
 
-    ];
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/journal_entries/?user=2&type=medication'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
 
-    res.render('Reminders', { title: 'Reminders', reminders:rems});
+            var reqBody = JSON.parse(body);
+            var rems = reqBody.objects;
+
+            console.log(reqBody);
+            res.render('Reminders', { title: 'Reminders', reminders:rems});
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+
+
 });
 
 module.exports = router;

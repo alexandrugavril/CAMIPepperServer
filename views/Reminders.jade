@@ -14,25 +14,17 @@ block content
         each rem in reminders
             div(class="row")
                 div(class="col-sm-6 text-right" )
-                    if(rem.validated)
+                    if(rem.acknowledged === null || !rem.acknowledged)
                         input(id="#{rem.id}" type="image" src="images/tick_green.png" style="width:120px;height:120px;" onclick='toggle("#{rem.id}")')
                     else
                         input(id="#{rem.id}" type="image" src="images/cancel1600.png" style="width:120px;height:120px;" onclick='toggle("#{rem.id}")')
                 div(class="col-sm-6" style="padding-right:50px; padding-top:10px;")
-                    font(size=20 style="text-align: bottom;vertical-align:text-bottom") #{rem.text}
+                    font(size=20 style="text-align: bottom;vertical-align:text-bottom") #{rem.message}
 
 script.
     var hidden = false;
     function toggle(id)
     {
-        if(reminders[id-1].validated)
-        {
-            document.getElementById(id).src = "images/cancel1600.png";
-        }
-        else
-        {
-            document.getElementById(id).src = "images/tick_green.png";
-        }
-        reminders[id-1].validated = !reminders[id-1].validated
+        console.log("Toggle:" + id);
     }
 

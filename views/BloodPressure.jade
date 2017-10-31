@@ -8,88 +8,46 @@ block content
         script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js").
         script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.bundle.min.js").
         script.
+            var pData = !{JSON.stringify(plotData)};
+
             var ctx = document.getElementById("myChart");
             var labs = [];
-            for(var i = 7 ; i  > 0; i--)
-            {
-                var date = new Date();
-                date.setDate(date.getDate() - i);
-                labs.push(date);
+            var diastolicValues = [];
+            var systolicValues = [];
+            var backgroundColorD= [];
+            var borderColorD= [];
+            var backgroundColorS = [];
+            var borderColorS = [];
+            for (var i = 0; i < pData.length; i++) {
+                var t = new Date(pData[i].timestamp);
+                labs.push(t.toISOString());
+                diastolicValues.push(pData[i].value_info.diastolic);
+                backgroundColorD.push('rgba(255, 99, 132, 0.2)');
+                backgroundColorS.push('rgba(255, 99, 0, 0.2)');
+                borderColorD.push('rgba(255,99,132,1)');
+                borderColorS.push('rgba(255,99,0,1)')
+                systolicValues.push(pData[i].value_info.systolic);
             }
 
             function  randomIntFromInterval(min, max) {
                 return Math.floor(Math.random() * (max - min + 1) + min);
             }
-            var labs = [];
-            for (var i = 7; i > 0; i--) {
-                var date = new Date();
 
-                date.setDate(date.getDate() - i + 1);
-                labs.push(date.getDate() + "-" + (date.getMonth() + 1)  + "-" + date.getFullYear());
-            }
             var lineChartData = {
                 labels: labs,
                 datasets: [{
                     label: "Diastolic",
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(255,99,132,1)',
-                        'rgba(255,99,132,1)',
-                        'rgba(255,99,132,1)',
-                        'rgba(255,99,132,1)',
-                        'rgba(255,99,132,1)',
-                        'rgba(255,99,132,1)'
-                    ],
+                    backgroundColor: backgroundColorD,
+                    borderColor: borderColorD,
                     fill: false,
-                    data: [
-                        randomIntFromInterval(100,139),
-                        randomIntFromInterval(100,139),
-                        randomIntFromInterval(100,139),
-                        randomIntFromInterval(100,139),
-                        randomIntFromInterval(100,139),
-                        randomIntFromInterval(100,139),
-                        randomIntFromInterval(100,139)
-                    ],
+                    data: diastolicValues,
                     yAxisID: "y-axis-1",
                 }, {
                     label: "Systolic",
-                    backgroundColor: [
-                        'rgba(255, 99, 0, 0.2)',
-                        'rgba(255, 99, 0, 0.2)',
-                        'rgba(255, 99, 0, 0.2)',
-                        'rgba(255, 99, 0, 0.2)',
-                        'rgba(255, 99, 0, 0.2)',
-                        'rgba(255, 99, 0, 0.2)',
-                        'rgba(255, 99, 0, 0.2)',
-                    ],
-                    borderColor: [
-                        'rgba(255,99,0,1)',
-                        'rgba(255,99,0,1)',
-                        'rgba(255,99,0,1)',
-                        'rgba(255,99,0,1)',
-                        'rgba(255,99,0,1)',
-                        'rgba(255,99,0,1)',
-                        'rgba(255,99,0,1)',
-                    ],
+                    backgroundColor: backgroundColorS,
+                    borderColor: borderColorS,
                     fill: false,
-                    data: [
-                        randomIntFromInterval(70,85),
-                        randomIntFromInterval(70,85),
-                        randomIntFromInterval(70,85),
-                        randomIntFromInterval(70,85),
-                        randomIntFromInterval(70,85),
-                        randomIntFromInterval(70,85),
-                        randomIntFromInterval(70,85)
-                    ],
+                    data: systolicValues,
                 }]
             };
             var myChart  = Chart.Bar(ctx, {
