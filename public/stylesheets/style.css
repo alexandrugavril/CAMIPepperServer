@@ -13,16 +13,25 @@ a {
 }
 
 .col-sm-6 {
-  width: 100% !important;
+  width: 93%!important;
   position: relative;
-  left: 0;
+  left: 7%;
 }
 
 .text-right {
-  float: right !important;
+  float: left !important;
+  width: 7%;
+  text-align: left;
+  position: absolute;
 }
 
 .h1, h1 {
   font-size: 4em !important;
   color: #4d71da
+}
+
+button, html input[type="button"], input[type="reset"], input[type="submit"] {
+  cursor: pointer;
+  width: 8em!important;
+  height: 3em!important;
 }
