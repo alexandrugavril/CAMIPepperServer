@@ -130,7 +130,7 @@ router.get('/RemindersCount', function(req, res, next) {
 var options = {
     host: '141.85.241.224',
     port: 8008,
-    path: '/api/v1/journal_entries/?user=2'
+    path: '/api/v1/journal_entries/?user=2&acknowledged=none'
 };
 
 var req = http.get(options, function(response) {
@@ -152,17 +152,12 @@ var req = http.get(options, function(response) {
         var nCnt = 0;
         for(var i = 0; i < rems.length; i++)
         {
-            if(!rems[i].acknowledged)
+            if(rems[i].acknowledged == true)
             {
-                cnt = cnt + 1;
-            }
-            else {
-                if(rems[i].acknowledged === false)
-                    continue;
-                nCnt++;
+                nCnt = nCnt + 1;
             }
         }
-        res.send(JSON.stringify({ count: cnt, ackCount: nCnt }));
+        res.send(JSON.stringify({ count: rems.length - nCnt, ackCount: nCnt }));
     })
 });
 
