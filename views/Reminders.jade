@@ -13,10 +13,10 @@ block content
             th
         each rem in reminders
             div(class="row")
-                div(class="text-right" style="padding-top:0px;")
-            if(rem.acknowledged === null || !rem.acknowledged)
+                div(class="text-right" )
+                    if(rem.acknowledged === null || !rem.acknowledged)
                         form(name='reminder', action='/markAsDone', method='post')
-                            input(id="#{rem.id}" name="var" type="submit" src="images/tick_green.png" onclick='toggle("#{rem.id}")')
+                            input(id="#{rem.id}" name="var" type="submit" src="images/tick_green.png" style="width:120px;height:120px;" onclick='toggle("#{rem.id}")')
                             input(id='remId', class='inputModal',type='text', name='remId', hidden='true', value='#{rem.id}')
                 div(class="col-sm-6" style="padding-right:50px; padding-top:10px;")
                     font(size=20 style="text-align: bottom;vertical-align:text-bottom") #{rem.message}
