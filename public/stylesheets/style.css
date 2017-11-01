@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 1.5em "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .vertical-align {
@@ -10,4 +10,19 @@ body {
 
 a {
   color: #00B7FF;
+}
+
+.col-sm-6 {
+  width: 100% !important;
+  position: relative;
+  left: 0;
+}
+
+.text-right {
+  float: right !important;
+}
+
+.h1, h1 {
+  font-size: 4em !important;
+  color: #4d71da
 }
