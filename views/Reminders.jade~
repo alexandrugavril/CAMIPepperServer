@@ -15,11 +15,27 @@ block content
             div(class="row")
                 div(class="col-sm-6 text-right" )
                     if(rem.acknowledged === null || !rem.acknowledged)
-                        form(name='reminder', action='/markAsDone', method='post')
-                            input(id="#{rem.id}" name="var" type="submit" src="images/tick_green.png" style="width:120px;height:120px;" onclick='toggle("#{rem.id}")')
-                            input(id='remId', class='inputModal',type='text', name='remId', hidden='true', value='#{rem.id}')
+                        input(id="#{rem.id}" type="image" src="images/tick_green.png" style="width:120px;height:120px;" onclick='toggle("#{rem.id}")')
+                    else
+                        input(id="#{rem.id}" type="image" src="images/cancel1600.png" style="width:120px;height:120px;" onclick='toggle("#{rem.id}")')
                 div(class="col-sm-6" style="padding-right:50px; padding-top:10px;")
                     font(size=20 style="text-align: bottom;vertical-align:text-bottom") #{rem.message}
 
-
+script.
+    var hidden = false;
+    function toggle(id)
+    {
+	$.ajax({
+	    url : 'http://141.85.241.224:8008/api/v1/journal_entries/'+id+'/',
+	    data : {acknowledged:true},
+	    type : 'PATCH',
+	    contentType : 'application/json',
+	    xhr: function() {
+		return window.XMLHttpRequest == null || new window.XMLHttpRequest().addEventListener == null 
+		    ? new window.ActiveXObject("Microsoft.XMLHTTP")
+		    : $.ajaxSettings.xhr();
+	    }
+	});
+        
+    }
 

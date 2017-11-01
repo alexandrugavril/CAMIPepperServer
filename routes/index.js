@@ -101,6 +101,30 @@ router.get('/BloodPressure',function(req, res, next) {
 
 });
 
+var request = require('request');
+
+router.post('/markAsDone', function(req, res, next) {
+    console.log(req.body);
+    if(req.body.remId)
+    {
+        var remId = req.body.remId;
+        console.log(remId);
+        var url = 'http://141.85.241.224:8008' +  '/api/v1/journal_entries/' + remId + '/';
+        console.log(url);
+
+            request({
+               method: 'PATCH',
+               uri: url,
+               json: {'acknowledged' : true}
+               
+            }, function(error, request, body){
+               console.log(body);
+               res.redirect('/Reminders')
+            });
+        
+        
+    }
+});
 
 router.get('/Reminders',function(req, res, next) {
 
