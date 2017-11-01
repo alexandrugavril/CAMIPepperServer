@@ -13,7 +13,7 @@ a {
 }
 
 .col-sm-6 {
-  width: 93%!important;
+  width: 93% !important;
   position: relative;
   left: 8em!important;
 }
@@ -26,7 +26,7 @@ a {
 }
 
 .h1, h1 {
-  font-size: 4em !important;
+  font-size: 5em !important;
   color: #4d71da
 }
 
@@ -34,4 +34,11 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   cursor: pointer;
   width: 8em!important;
   height: 3em!important;
+}
+
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+  margin-bottom: 15px;
+  background: lightblue;
 }
