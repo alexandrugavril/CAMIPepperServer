@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 1.5em "Lucida Grande", Helvetica, Arial, sans-serif;
+  vertical-align: center !important;
 }
 
 .vertical-align {
@@ -13,27 +14,40 @@ a {
 }
 
 .col-sm-6 {
-  width: 93% !important;
+  width: 85% !important;
   position: relative;
-  left: 8em!important;
+  left: 15em!important;
+  background-color: lightblue;
 }
 
 .text-right {
   float: left !important;
-  width: 7%;
+  width: 15%;
   text-align: left;
   position: absolute;
 }
 
 .h1, h1 {
   font-size: 5em !important;
-  color: #4d71da
+  color: #4d71da;
+  padding-bottom: 0.2em;
+}
+
+.h2, h2 {
+  font-size: 4em !important;
+  color: #4d71da;
+  padding-bottom: 0.1em;
+  text-align: center;
+  position: relative;
+  top: 0;
+  margin: 0;
 }
 
 button, html input[type="button"], input[type="reset"], input[type="submit"] {
   cursor: pointer;
-  width: 8em!important;
-  height: 3em!important;
+  font-size: 2em;
+  width: 7.5em !important;
+  height: 2.57em !important;
 }
 
 .row {
@@ -41,4 +55,12 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   margin-left: -15px;
   margin-bottom: 15px;
   background: lightblue;
+}
+form{
+  display: none;
+}
+
+#myChartDiv{
+  width: 100%;
+  height: 74vh !important;
 }
