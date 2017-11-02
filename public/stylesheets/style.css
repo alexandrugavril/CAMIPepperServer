@@ -14,17 +14,22 @@ a {
 }
 
 .col-sm-6 {
-  width: 85% !important;
+  width: 90% !important;
   position: relative;
-  left: 15em!important;
+  left: 6em!important;
   background-color: lightblue;
 }
 
 .text-right {
   float: left !important;
-  width: 15%;
+  width: 10%;
   text-align: left;
   position: absolute;
+  left: 3em!important;
+}
+.imgsub {
+  width: 6em;
+  height: 6em;
 }
 
 .h1, h1 {
