@@ -30,6 +30,10 @@ a {
 .imgsub {
   width: 6em;
   height: 6em;
+  opacity: 1;
+}
+.imgsub:hover {
+  opacity: 0.7;
 }
 
 .h1, h1 {
