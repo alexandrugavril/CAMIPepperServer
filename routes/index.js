@@ -8,6 +8,36 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/HeartRate/LastValue', function(req,res, next) {
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=pulse&order_by=-timestamp&user=2'
+    };
+
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+            var hrData = reqBody.measurements;
+            console.log(hrData);
+            res.send('' + reqBody.measurements[reqBody.measurements.length-1].value_info.value);
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+});
+
 router.get('/HeartRate',function(req, res, next) {
     var options = {
         host: '141.85.241.224',
@@ -39,6 +69,36 @@ router.get('/HeartRate',function(req, res, next) {
 
 });
 
+
+router.get('/Weight/LastValue', function(req,res, next) {
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=weight&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+            var wData = reqBody.measurements;
+            console.log(wData);
+            res.send('' + reqBody.measurements[reqBody.measurements.length-1].value_info.value);
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+});
+
 router.get('/Weight',function(req, res, next) {
     var options = {
         host: '141.85.241.224',
@@ -68,6 +128,37 @@ router.get('/Weight',function(req, res, next) {
     });
 
 
+});
+
+
+router.get('/BloodPressure/LastValue', function(req,res, next) {
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=blood_pressure&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+            var bpData = reqBody.measurements;
+            console.log(bpData);
+            res.send('' + reqBody.measurements[reqBody.measurements.length-1].value_info.systolic + ' ' +
+                reqBody.measurements[reqBody.measurements.length-1].value_info.diastolic);
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
 });
 
 router.get('/BloodPressure',function(req, res, next) {
