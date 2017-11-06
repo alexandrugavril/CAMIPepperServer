@@ -1,0 +1,25 @@
+extends layout
+
+link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+link(rel='stylesheet', href='/stylesheets/style.css')
+script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+script.
+    var reminders = !{JSON.stringify(reminders)};
+
+block content
+    table(class="col-md-12" style="width:100%")
+        tr
+            th
+            th
+        each rem in reminders
+            div(class="row")
+                div(class="text-right" )
+                    if(rem.acknowledged === null || !rem.acknowledged)
+                        form(name='reminder', action='/markAsDone', method='post')
+                            input(id="#{rem.id}" class="imgsub" name="var" type="image" src="./images/tick_green.png" onclick='toggle("#{rem.id}")')
+                            input(id='remId', class='inputModal',type='text', name='remId', hidden='true', value='#{rem.id}')
+                div(class="col-sm-6" style="padding-right:50px; padding-top:10px; padding-bottom:10px;")
+                    font(size=20 style="text-align: bottom;vertical-align:text-bottom") #{rem.message}
+
+
