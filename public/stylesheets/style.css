@@ -81,6 +81,9 @@ myChartDivWeb{
   font-size: 35px;
   text-align: center;
   font-weight: bold;
-  margin-top: -50px;
+  margin-top: 0px;
   margin-bottom: 0px;
+}
+.speciallastvaluebody{
+  padding: 0px;
 }
