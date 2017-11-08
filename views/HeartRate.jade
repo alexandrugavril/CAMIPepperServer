@@ -15,7 +15,8 @@ block content
         var dataValues = [];
         for (var i = 0; i < pData.length; i++) {
             var t = new Date(pData[i].timestamp);
-            labs.push(t.toISOString());
+            var formatted = t.getDate() + "." + (t.getMonth() + 1) + "." + t.getFullYear() + " " + ('0' + t.getHours()).slice(-2) + ':' + ('0' + t.getMinutes()).slice(-2);
+            labs.push(formatted);
             dataValues.push(pData[i].value_info.value)
         }
 
