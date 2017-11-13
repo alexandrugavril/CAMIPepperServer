@@ -104,9 +104,10 @@ myChartDivWeb{
 .specialcountbody .h3, h3 {
   padding: 0;
   margin: 0;
+  font-size: 5vw;
 }
 .smartnotifclass h5 {
-  font-size: 4vw;
+  font-size: 5vw;
   text-align: center;
   font-weight: bold;
   margin-top: 0px;
