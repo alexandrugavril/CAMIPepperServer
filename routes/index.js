@@ -540,7 +540,7 @@ router.get('/calc/CalcWeight', function(req,res, next) {
                 //res.render('calc/CalcWeight', {title: 'Weight',lastValue: lastValue,beforeLastValue: beforeLastValue});
             }
             if (diffwval == 0) {
-                res.render('calc/CalcWeight', {title: 'Weight',lastValue: "You Weight is stable."});
+                res.render('calc/CalcWeight', {title: 'Weight',lastValue: "Your Weight is stable."});
             }
             if (diffwval > 0) {
                 res.render('calc/CalcWeight', {title: 'Weight',lastValue: "You have lost " + (diffwval) + " Kg."});
@@ -553,4 +553,131 @@ router.get('/calc/CalcWeight', function(req,res, next) {
     });
 });
 
+router.get('/calc/CalcHeartRate', function(req,res, next) {
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=pulse&order_by=-timestamp&user=2'
+    };
+
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+            var hrData = reqBody.measurements;
+            console.log(hrData);
+            var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info;
+            var beforeLastValue = reqBody.measurements[reqBody.measurements.length-2].value_info;
+            var diffwval= (beforeLastValue.value - lastValue.value).toFixed(3);
+            if (diffwval < 0) {
+                res.render('calc/CalcHeartRate', {title: 'Heart Rate',lastValue: "Your Heart Rate increased by " + (-diffwval) + " bpm."});
+                //res.render('calc/CalcWeight', {title: 'Weight',lastValue: lastValue,beforeLastValue: beforeLastValue});
+            }
+            if (diffwval == 0) {
+                res.render('calc/CalcHeartRate', {title: 'Heart Rate',lastValue: "Your Heart Rate is stable."});
+            }
+            if (diffwval > 0) {
+                res.render('calc/CalcHeartRate', {title: 'Heart Rate',lastValue: "Your Heart Rate decreased by " + (diffwval) + " bpm."});
+            }
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+});
+
+router.get('/calc/CalcBloodPressure', function(req,res, next) {
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=blood_pressure&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+
+            var bpData = reqBody.measurements;
+            console.log(bpData);
+            var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info.systolic;
+            var beforeLastValue = reqBody.measurements[reqBody.measurements.length-2].value_info.systolic;
+            var diffwval= (beforeLastValue - lastValue).toFixed(0);
+            if (diffwval < 0) {
+                res.render('calc/CalcBloodPressure', {title: 'Systolic Blood Pressure',lastValue: "Your Systolic Blood Pressure increased by " + (-diffwval) + " bp."});
+            }
+            if (diffwval == 0) {
+                res.render('calc/CalcBloodPressure', {title: 'Systolic Blood Pressure',lastValue: "Your Systolic Blood Pressure is stable."});
+            }
+            if (diffwval > 0) {
+                res.render('calc/CalcBloodPressure', {title: 'Systolic Blood Pressure',lastValue: "Your Systolic Blood Pressure decreased by " + (diffwval) + " bp."});
+            }
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+});
+
+router.get('/calc/CalcBloodPressureDiastolic', function(req,res, next) {
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=blood_pressure&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+
+            var bpData = reqBody.measurements;
+            console.log(bpData);
+            var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info.diastolic;
+            var beforeLastValue = reqBody.measurements[reqBody.measurements.length-2].value_info.diastolic;
+            var diffwval= (beforeLastValue - lastValue).toFixed(0);
+            if (diffwval < 0) {
+                res.render('calc/CalcBloodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure increased by " + (-diffwval) + " bp."});
+            }
+            if (diffwval == 0) {
+                res.render('calc/CalcBloodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure is stable."});
+            }
+            if (diffwval > 0) {
+                res.render('calc/CalcBloodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure decreased by " + (diffwval) + " bp."});
+            }
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+});
+
 module.exports = router;
+
+
+
