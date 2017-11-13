@@ -419,7 +419,6 @@ router.get('/WebReminders',function(req, res, next) {
 
             var reqBody = JSON.parse(body);
             var rems = reqBody.objects;
-
             console.log(reqBody);
             res.render('Reminders', { title: '', reminders:rems});
         })
@@ -429,5 +428,87 @@ router.get('/WebReminders',function(req, res, next) {
         console.log('ERROR: ' + e.message);
     });
 });
+
+
+router.get('/RemindersWeb',function(req, res, next) {
+
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/journal_entries/?user=2'
+    };
+    var req = http.get(options, function (response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function (chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function () {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+            var rems = reqBody.objects;
+
+            console.log(reqBody);
+            var cnt = 0;
+            var nCnt = 0;
+            for (var i = 0; i < rems.length; i++) {
+                if (rems[i].acknowledged == true || rems[i].acknowledged == false) {
+                    nCnt = nCnt + 1;
+                }
+            }
+            if ((rems.length - nCnt) == 0) {
+                res.render('RemindersWeb', {count: "You do not have any new Reminder."});
+                //res.render('RemindersWeb', { count:rems.length - nCnt});
+            }
+            if ((rems.length - nCnt) == 1) {
+                res.render('RemindersWeb', {count: "You have " + (rems.length - nCnt) + " new Reminder."});
+                //res.render('RemindersWeb', { count:rems.length - nCnt});
+            }
+            if ((rems.length - nCnt) > 1) {
+                res.render('RemindersWeb', {count: "You have " + (rems.length - nCnt) + " new Reminders."});
+                //res.render('RemindersWeb', { count:rems.length - nCnt});
+            }
+        });
+    });
+});
+
+router.get('/RemindersWebWidget',function(req, res, next) {
+
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/journal_entries/?user=2'
+    };
+    var req = http.get(options, function (response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function (chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function () {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+            var rems = reqBody.objects;
+
+            console.log(reqBody);
+            var cnt = 0;
+            var nCnt = 0;
+            for (var i = 0; i < rems.length; i++) {
+                if (rems[i].acknowledged == true || rems[i].acknowledged == false) {
+                    nCnt = nCnt + 1;
+                }
+            }
+           res.render('RemindersWeb', {count:rems.length - nCnt});
+        });
+    });
+});
+
+
 
 module.exports = router;

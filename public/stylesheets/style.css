@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 5vh;
   font: 1.5em "Lucida Grande", Helvetica, Arial, sans-serif;
   vertical-align: center !important;
 }
@@ -21,6 +21,14 @@ a {
 }
 
 .text-right {
+  float: left !important;
+  width: 10%;
+  text-align: left;
+  position: absolute;
+  left: 3em!important;
+}
+
+.text-right-webreminder{
   float: left !important;
   width: 10%;
   text-align: left;
@@ -86,4 +94,12 @@ myChartDivWeb{
 }
 .speciallastvaluebody{
   padding: 0px;
+}
+.specialcountbody{
+  padding: 0px;
+}
+
+.specialcountbody .h3, h3 {
+  padding: 0;
+  margin: 0;
 }
