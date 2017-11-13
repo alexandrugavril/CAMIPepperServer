@@ -509,6 +509,48 @@ router.get('/RemindersWebWidget',function(req, res, next) {
     });
 });
 
+router.get('/calc/CalcWeight', function(req,res, next) {
+    var options = {
+        host: '141.85.241.224',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=weight&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
 
+            var reqBody = JSON.parse(body);
+
+            var wData = reqBody.measurements;
+            console.log(wData);
+            var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info;
+            var beforeLastValue = reqBody.measurements[reqBody.measurements.length-2].value_info;
+            var diffwval= (beforeLastValue.value - lastValue.value).toFixed(3);
+            //res.render('calc/CalcWeight', {title: 'Weight',lastValue: lastValue, beforeLastValue: beforeLastValue, abcd: abcd });
+
+            if (diffwval < 0) {
+                res.render('calc/CalcWeight', {title: 'Weight',lastValue: "You have gain " + (-diffwval) + " Kg."});
+                //res.render('calc/CalcWeight', {title: 'Weight',lastValue: lastValue,beforeLastValue: beforeLastValue});
+            }
+            if (diffwval == 0) {
+                res.render('calc/CalcWeight', {title: 'Weight',lastValue: "You Weight is stable."});
+            }
+            if (diffwval > 0) {
+                res.render('calc/CalcWeight', {title: 'Weight',lastValue: "You have lost " + (diffwval) + " Kg."});
+            }
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+});
 
 module.exports = router;
