@@ -105,3 +105,10 @@ myChartDivWeb{
   padding: 0;
   margin: 0;
 }
+.smartnotifclass h5 {
+  font-size: 4vw;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
