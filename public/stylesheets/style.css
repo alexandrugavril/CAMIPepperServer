@@ -106,6 +106,14 @@ myChartDivWeb{
   margin: 0;
   font-size: 5vw;
 }
+
+.smartnotifclass {
+  padding: 0px;
+  font: 1.5em "Lucida Grande", Helvetica, Arial, sans-serif;
+  border: 0px;
+  margin: 0px;
+}
+
 .smartnotifclass h5 {
   font-size: 5vw;
   text-align: center;
