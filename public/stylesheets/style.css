@@ -121,3 +121,8 @@ myChartDivWeb{
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+.smartnotifvalueclass h5 {
+  width: 80%;
+  padding-left: 10%;
+}
