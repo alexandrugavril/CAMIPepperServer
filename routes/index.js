@@ -323,7 +323,7 @@ router.get('/Reminders/Count', function(req, res, next) {
             var cnt = 0;
             var nCnt = 0;
             for (var i = 0; i < rems.length; i++) {
-                if (rems[i].acknowledged == true || rems[i].acknowledged == false) {
+                if (rems[i].acknowledged === true || rems[i].acknowledged === false) {
                     nCnt = nCnt + 1;
                 }
 
@@ -360,7 +360,7 @@ router.get('/RemindersCount', function(req, res, next) {
             var cnt = 0;
             var nCnt = 0;
             for (var i = 0; i < rems.length; i++) {
-                if (rems[i].acknowledged == true || rems[i].acknowledged == false) {
+                if (rems[i].acknowledged === true || rems[i].acknowledged === false) {
                     nCnt = nCnt + 1;
                 }
             }
@@ -455,15 +455,15 @@ router.get('/RemindersWeb',function(req, res, next) {
             var cnt = 0;
             var nCnt = 0;
             for (var i = 0; i < rems.length; i++) {
-                if (rems[i].acknowledged == true || rems[i].acknowledged == false) {
+                if (rems[i].acknowledged === true || rems[i].acknowledged === false) {
                     nCnt = nCnt + 1;
                 }
             }
-            if ((rems.length - nCnt) == 0) {
+            if ((rems.length - nCnt) === 0) {
                 res.render('RemindersWeb', {count: "You do not have any new Reminder."});
                 //res.render('RemindersWeb', { count:rems.length - nCnt});
             }
-            if ((rems.length - nCnt) == 1) {
+            if ((rems.length - nCnt) === 1) {
                 res.render('RemindersWeb', {count: "You have " + (rems.length - nCnt) + " new Reminder."});
                 //res.render('RemindersWeb', { count:rems.length - nCnt});
             }
@@ -500,7 +500,7 @@ router.get('/RemindersWebWidget',function(req, res, next) {
             var cnt = 0;
             var nCnt = 0;
             for (var i = 0; i < rems.length; i++) {
-                if (rems[i].acknowledged == true || rems[i].acknowledged == false) {
+                if (rems[i].acknowledged === true || rems[i].acknowledged === false) {
                     nCnt = nCnt + 1;
                 }
             }
@@ -536,10 +536,10 @@ router.get('/calc/CalcWeight', function(req,res, next) {
             //res.render('calc/CalcWeight', {title: 'Weight',lastValue: lastValue, beforeLastValue: beforeLastValue, abcd: abcd });
 
             if (diffwval < 0) {
-                res.render('calc/CalcWeight', {title: 'Weight',lastValue: "You have gain " + (-diffwval) + " Kg."});
+                res.render('calc/CalcWeight', {title: 'Weight',lastValue: "You have gained " + (-diffwval) + " Kg."});
                 //res.render('calc/CalcWeight', {title: 'Weight',lastValue: lastValue,beforeLastValue: beforeLastValue});
             }
-            if (diffwval == 0) {
+            if (diffwval === 0) {
                 res.render('calc/CalcWeight', {title: 'Weight',lastValue: "Your Weight is stable."});
             }
             if (diffwval > 0) {
@@ -581,7 +581,7 @@ router.get('/calc/CalcHeartRate', function(req,res, next) {
                 res.render('calc/CalcHeartRate', {title: 'Heart Rate',lastValue: "Your Heart Rate increased by " + (-diffwval) + " bpm."});
                 //res.render('calc/CalcWeight', {title: 'Weight',lastValue: lastValue,beforeLastValue: beforeLastValue});
             }
-            if (diffwval == 0) {
+            if (diffwval === 0) {
                 res.render('calc/CalcHeartRate', {title: 'Heart Rate',lastValue: "Your Heart Rate is stable."});
             }
             if (diffwval > 0) {
@@ -622,7 +622,7 @@ router.get('/calc/CalcBloodPressure', function(req,res, next) {
             if (diffwval < 0) {
                 res.render('calc/CalcBloodPressure', {title: 'Systolic Blood Pressure',lastValue: "Your Systolic Blood Pressure increased by " + (-diffwval) + " bp."});
             }
-            if (diffwval == 0) {
+            if (diffwval === 0) {
                 res.render('calc/CalcBloodPressure', {title: 'Systolic Blood Pressure',lastValue: "Your Systolic Blood Pressure is stable."});
             }
             if (diffwval > 0) {
@@ -663,8 +663,9 @@ router.get('/calc/CalcBloodPressureDiastolic', function(req,res, next) {
             if (diffwval < 0) {
                 res.render('calc/CalcBloodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure increased by " + (-diffwval) + " bp."});
             }
-            if (diffwval == 0) {
-                res.render('calc/CalcBloodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure is stable."});
+            if (diffwval === 0) {
+                res.render('calc/CalcBl' +
+                    'oodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure is stable."});
             }
             if (diffwval > 0) {
                 res.render('calc/CalcBloodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure decreased by " + (diffwval) + " bp."});
