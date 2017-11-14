@@ -576,7 +576,7 @@ router.get('/calc/CalcHeartRate', function(req,res, next) {
             console.log(hrData);
             var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info;
             var beforeLastValue = reqBody.measurements[reqBody.measurements.length-2].value_info;
-            var diffwval= (beforeLastValue.value - lastValue.value).toFixed(3);
+            var diffwval= (beforeLastValue.value - lastValue.value).toFixed(0);
             if (diffwval < 0) {
                 res.render('calc/CalcHeartRate', {title: 'Heart Rate',lastValue: "Your Heart Rate increased by " + (-diffwval) + " bpm."});
                 //res.render('calc/CalcWeight', {title: 'Weight',lastValue: lastValue,beforeLastValue: beforeLastValue});
