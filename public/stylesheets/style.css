@@ -141,9 +141,6 @@ form{
 }
 
 @media only screen and (max-width: 500px) {
-  .smartnotifclass{
-      display:none;
-  }
   .smartnotifclass h5 {
     font-size: 8vw;
   }
@@ -151,4 +148,7 @@ form{
     left: 27vw !important;
     font: 1.4vw "Lucida Grande", Helvetica, Arial, sans-serif;
   }
+    .specialcountbody .h3, h3 {
+        font-size: 16px;
+        text-align: center;
 }
