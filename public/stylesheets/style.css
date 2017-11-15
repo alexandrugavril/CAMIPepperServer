@@ -20,6 +20,13 @@ a {
   background-color: lightblue;
 }
 
+.col-sm-6-webreminders {
+  width: 90% !important;
+  position: relative;
+  left: 6em!important;
+  background-color: lightblue;
+}
+
 .text-right {
   float: left !important;
   width: 10%;
@@ -82,7 +89,7 @@ form{
   width: 100%;
   height: 74vh !important;
 }
-myChartDivWeb{
+#myChartDivWeb{
   width: 100%;
   height: 74vh !important;
 }
@@ -124,4 +131,14 @@ myChartDivWeb{
 .smartnotifvalueclass h5 {
   width: 80%;
   padding-left: 11%;
+}
+
+@media only screen and (max-width: 500px) {
+  .smartnotifclass h5 {
+    font-size: 8vw;
+  }
+  .col-sm-6-webreminders {
+    left: 27vw !important;
+    font: 1.4vw "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
 }

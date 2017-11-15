@@ -416,11 +416,10 @@ router.get('/WebReminders',function(req, res, next) {
             bodyChunks.push(chunk);
         }).on('end', function() {
             var body = Buffer.concat(bodyChunks);
-
             var reqBody = JSON.parse(body);
             var rems = reqBody.objects;
             console.log(reqBody);
-            res.render('Reminders', { title: '', reminders:rems});
+            res.render('WebReminders', { title: '', reminders:rems});
         })
     });
 
