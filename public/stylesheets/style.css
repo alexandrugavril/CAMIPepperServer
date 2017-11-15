@@ -150,11 +150,11 @@ form{
         font: 1.4vw "Lucida Grande", Helvetica, Arial, sans-serif;
     }
 
-    .specialcountbody .h3 {
+    .specialcountbody h3 {
         font-size: 6vw;
     }
 
-    specialmbwidget .h3 {
+    specialmbwidget h3 {
         font-size: 15vw;
         text-align: center;
         font-weight: bold;
