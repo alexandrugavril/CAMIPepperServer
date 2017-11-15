@@ -141,14 +141,24 @@ form{
 }
 
 @media only screen and (max-width: 500px) {
-  .smartnotifclass h5 {
-    font-size: 8vw;
-  }
-  .col-sm-6-webreminders {
-    left: 27vw !important;
-    font: 1.4vw "Lucida Grande", Helvetica, Arial, sans-serif;
-  }
+    .smartnotifclass h5 {
+        font-size: 8vw;
+    }
+
+    .col-sm-6-webreminders {
+        left: 27vw !important;
+        font: 1.4vw "Lucida Grande", Helvetica, Arial, sans-serif;
+    }
+
     .specialcountbody .h3, h3 {
-        font-size: 16px;
+        font-size: 8vw;
+    }
+
+    specialmbwidget .h3, h3 {
+        font-size: 15vw;
         text-align: center;
+        font-weight: bold;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
 }
