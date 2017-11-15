@@ -621,7 +621,7 @@ router.get('/calc/CalcBloodPressure', function(req,res, next) {
             if (diffwval < 0) {
                 res.render('calc/CalcBloodPressure', {title: 'Systolic Blood Pressure',lastValue: "Your Systolic Blood Pressure increased by " + (-diffwval) + " bp."});
             }
-            if (diffwval === 0) {
+            if (diffwval == 0) {
                 res.render('calc/CalcBloodPressure', {title: 'Systolic Blood Pressure',lastValue: "Your Systolic Blood Pressure is stable."});
             }
             if (diffwval > 0) {
@@ -662,7 +662,7 @@ router.get('/calc/CalcBloodPressureDiastolic', function(req,res, next) {
             if (diffwval < 0) {
                 res.render('calc/CalcBloodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure increased by " + (-diffwval) + " bp."});
             }
-            if (diffwval === 0) {
+            if (diffwval == 0) {
                 res.render('calc/CalcBl' +
                     'oodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure is stable."});
             }
