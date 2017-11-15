@@ -155,10 +155,6 @@ form{
     }
 
     .specialmbwidget h3 {
-        font-size: 15vw;
-        text-align: center;
-        font-weight: bold;
-        margin-top: 0px;
-        margin-bottom: 0px;
+        display:none;
     }
 }
