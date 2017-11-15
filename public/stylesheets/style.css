@@ -142,7 +142,7 @@ form{
 
 @media only screen and (max-width: 500px) {
     .smartnotifclass h5 {
-        font-size: 8vw;
+        font-size: 10vw;
     }
 
     .col-sm-6-webreminders {
@@ -151,7 +151,7 @@ form{
     }
 
     .specialcountbody .h3, h3 {
-        font-size: 8vw;
+        font-size: 6vw;
     }
 
     specialmbwidget .h3, h3 {
