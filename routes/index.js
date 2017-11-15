@@ -474,7 +474,7 @@ router.get('/RemindersWeb',function(req, res, next) {
     });
 });
 
-router.get('/RemindersWebWidget',function(req, res, next) {
+router.get('/ReminderWebWidget',function(req, res, next) {
 
     var options = {
         host: '141.85.241.224',
@@ -503,7 +503,7 @@ router.get('/RemindersWebWidget',function(req, res, next) {
                     nCnt = nCnt + 1;
                 }
             }
-           res.render('RemindersWeb', {count:rems.length - nCnt});
+           res.render('ReminderWebWidget', {count:rems.length - nCnt});
         });
     });
 });
