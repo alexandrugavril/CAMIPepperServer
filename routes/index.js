@@ -120,7 +120,8 @@ router.get('/Weight/LastValue', function(req,res, next) {
             var wData = reqBody.measurements;
             console.log(wData);
             var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info;
-            res.render('lastValuePages/WeightLastValue', {title: 'Weight', lastValue: lastValue});
+            var lasValue2= (lastValue.value - 0.000).toFixed(3);
+            res.render('lastValuePages/WeightLastValue', {title: 'Weight', lastValue2: lasValue2});
         })
     });
 
@@ -538,7 +539,7 @@ router.get('/calc/CalcWeight', function(req,res, next) {
                 res.render('calc/CalcWeight', {title: 'Weight',lastValue: "You have gained " + (-diffwval) + " Kg."});
                 //res.render('calc/CalcWeight', {title: 'Weight',lastValue: lastValue,beforeLastValue: beforeLastValue});
             }
-            if (diffwval === 0) {
+            if (diffwval == 0) {
                 res.render('calc/CalcWeight', {title: 'Weight',lastValue: "Your Weight is stable."});
             }
             if (diffwval > 0) {
@@ -580,7 +581,7 @@ router.get('/calc/CalcHeartRate', function(req,res, next) {
                 res.render('calc/CalcHeartRate', {title: 'Heart Rate',lastValue: "Your Heart Rate increased by " + (-diffwval) + " bpm."});
                 //res.render('calc/CalcWeight', {title: 'Weight',lastValue: lastValue,beforeLastValue: beforeLastValue});
             }
-            if (diffwval === 0) {
+            if (diffwval == 0) {
                 res.render('calc/CalcHeartRate', {title: 'Heart Rate',lastValue: "Your Heart Rate is stable."});
             }
             if (diffwval > 0) {
