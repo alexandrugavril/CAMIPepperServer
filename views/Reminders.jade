@@ -5,7 +5,7 @@ link(rel='stylesheet', href='/stylesheets/style.css')
 script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
 script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
 script.
-    var reminders = !{JSON.stringify(reminders)};
+    var reminders = !{JSON.stringify(package["reminders"])};
 
 block content
     h2= title
@@ -13,14 +13,27 @@ block content
         tr
             th
             th
-        each rem in reminders
+        each rem in package.reminders
             div(class="row")
                 div(class="text-right" )
-                    if(rem.acknowledged === null || !rem.acknowledged)
                         form(name='reminder', action='/markAsDone', method='post')
-                            input(id="#{rem.id}" class="imgsub" name="var" type="image" src="./images/cancel1600.png" onclick='toggle("#{rem.id}")')
+                            if package.id == -1
+                                input(id="#{rem.id}" class="imgsub" name="var" type="image" src="./images/cancel1600.png" onclick='toggle("#{rem.id}")')
+                            else
+                                input(id="#{rem.id}" class="imgsub" name="var" type="image" src="../images/cancel1600.png" onclick='toggle("#{rem.id}")')
+
                             input(id='remId', class='inputModal',type='text', name='remId', hidden='true', value='#{rem.id}')
                 div(class="col-sm-6" style="padding-right:50px; padding-top:10px; padding-bottom:10px;")
                     font(size=20 style="text-align: bottom;vertical-align:text-bottom") #{rem.message}
+            if(package.id !== -1)
+                div(class="row")
+                    if(!package.isLast)
+                        div(class="col-sm-4")
+                            form(name='next', action='/Reminders/' + (package.id + 1), method='get')
+                                input(id="#{rem.id}" type="submit" value="Next")
+                    if(package.id !== 0)
+                        div(class="col-sm-4")
+                            form(name='previous', action='/Reminders/' + (package.id - 1), method='get')
+                                input(id="#{rem.id}" type="submit" value="Previous")
 
 
