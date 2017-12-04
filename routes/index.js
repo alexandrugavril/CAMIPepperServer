@@ -278,12 +278,15 @@ router.get('/WebBloodPressure',function(req, res, next) {
 
 var request = require('request');
 
-router.post('/markAsDone', function(req, res, next) {
+router.post('/markAsDone/:id', function(req, res, next) {
     console.log(req.body);
     if(req.body.remId)
     {
         var remId = req.body.remId;
+        var id = parseInt(req.params.id);
+
         console.log(remId);
+
         var url = 'http://141.85.241.224:8008' +  '/api/v1/journal_entries/' + remId + '/';
         console.log(url);
 
@@ -294,7 +297,10 @@ router.post('/markAsDone', function(req, res, next) {
                
             }, function(error, request, body){
                console.log(body);
-               res.redirect('/Reminders')
+               if(id === -1)
+                   res.redirect('/Reminders');
+                else
+                    res.redirect('/Reminders/' + id);
             });
     }
 });
@@ -414,9 +420,7 @@ router.get('/Reminders/:id', function(req,res,next)
                 var cRems = [];
                 cRems.push(remindersNotSeen[id]);
 
-                var package = {"id": id, "reminders": cRems};
-                if(id === rems.length -1)
-                    package["isLast"] = 1;
+                var package = {"id": id, "reminders": cRems, "last": remindersNotSeen.length - 1};
                 res.render('Reminders', { title: 'Reminders', package:package});
             })
         });
