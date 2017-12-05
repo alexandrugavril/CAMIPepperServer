@@ -629,8 +629,8 @@ router.get('/calc/CalcWeight', function(req,res, next) {
 
             var wData = reqBody.measurements;
             console.log(wData);
-            var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info;
-            var beforeLastValue = reqBody.measurements[reqBody.measurements.length-2].value_info;
+            var lastValue = reqBody.measurements[0].value_info;
+            var beforeLastValue = reqBody.measurements[1].value_info;
             var diffwval= (beforeLastValue.value - lastValue.value).toFixed(3);
             //res.render('calc/CalcWeight', {title: 'Weight',lastValue: lastValue, beforeLastValue: beforeLastValue, abcd: abcd });
 
@@ -673,8 +673,8 @@ router.get('/calc/CalcHeartRate', function(req,res, next) {
             var reqBody = JSON.parse(body);
             var hrData = reqBody.measurements;
             console.log(hrData);
-            var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info;
-            var beforeLastValue = reqBody.measurements[reqBody.measurements.length-2].value_info;
+            var lastValue = reqBody.measurements[0].value_info;
+            var beforeLastValue = reqBody.measurements[1].value_info;
             var diffwval= (beforeLastValue.value - lastValue.value).toFixed(0);
             if (diffwval < 0) {
                 res.render('calc/CalcHeartRate', {title: 'Heart Rate',lastValue: "Your Heart Rate increased by " + (-diffwval) + " bpm."});
@@ -715,8 +715,8 @@ router.get('/calc/CalcBloodPressure', function(req,res, next) {
 
             var bpData = reqBody.measurements;
             console.log(bpData);
-            var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info.systolic;
-            var beforeLastValue = reqBody.measurements[reqBody.measurements.length-2].value_info.systolic;
+            var lastValue = reqBody.measurements[0].value_info.systolic;
+            var beforeLastValue = reqBody.measurements[1].value_info.systolic;
             var diffwval= (beforeLastValue - lastValue).toFixed(0);
             if (diffwval < 0) {
                 res.render('calc/CalcBloodPressure', {title: 'Systolic Blood Pressure',lastValue: "Your Systolic Blood Pressure increased by " + (-diffwval) + " bp."});
@@ -756,8 +756,8 @@ router.get('/calc/CalcBloodPressureDiastolic', function(req,res, next) {
 
             var bpData = reqBody.measurements;
             console.log(bpData);
-            var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info.diastolic;
-            var beforeLastValue = reqBody.measurements[reqBody.measurements.length-2].value_info.diastolic;
+            var lastValue = reqBody.measurements[0].value_info.diastolic;
+            var beforeLastValue = reqBody.measurements[1].value_info.diastolic;
             var diffwval= (beforeLastValue - lastValue).toFixed(0);
             if (diffwval < 0) {
                 res.render('calc/CalcBloodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure increased by " + (-diffwval) + " bp."});
