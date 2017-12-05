@@ -29,7 +29,7 @@ router.get('/HeartRate/LastValue', function(req,res, next) {
             var reqBody = JSON.parse(body);
             var hrData = reqBody.measurements;
             console.log(hrData);
-            var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info;
+            var lastValue = reqBody.measurements[0].value_info;
             res.render('lastValuePages/HeartRateLastValue', {title: 'Heart Rate', lastValue: lastValue});
         })
     });
@@ -119,7 +119,7 @@ router.get('/Weight/LastValue', function(req,res, next) {
 
             var wData = reqBody.measurements;
             console.log(wData);
-            var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info;
+            var lastValue = reqBody.measurements[0].value_info;
             var lasValue2= (lastValue.value - 0.000).toFixed(3);
             res.render('lastValuePages/WeightLastValue', {title: 'Weight', lastValue2: lasValue2});
         })
@@ -206,7 +206,7 @@ router.get('/BloodPressure/LastValue', function(req,res, next) {
 
             var bpData = reqBody.measurements;
             console.log(bpData);
-            var lastValue = reqBody.measurements[reqBody.measurements.length-1].value_info;
+            var lastValue = reqBody.measurements[0].value_info;
             res.render('lastValuePages/BloodPressureLastValue', {title: 'Blood Pressure', lastValue: lastValue});
 
 
