@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/HeartRate/LastValue', function(req,res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=pulse&order_by=-timestamp&user=2'
     };
@@ -41,7 +41,7 @@ router.get('/HeartRate/LastValue', function(req,res, next) {
 
 router.get('/HeartRate',function(req, res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=pulse&order_by=-timestamp&user=2'
     };
@@ -70,7 +70,7 @@ router.get('/HeartRate',function(req, res, next) {
 
 router.get('/WebHeartRate',function(req, res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=pulse&order_by=-timestamp&user=2'
     };
@@ -100,7 +100,7 @@ router.get('/WebHeartRate',function(req, res, next) {
 
 router.get('/Weight/LastValue', function(req,res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=weight&order_by=-timestamp&user=2'
     };
@@ -132,7 +132,7 @@ router.get('/Weight/LastValue', function(req,res, next) {
 
 router.get('/Weight',function(req, res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=weight&order_by=-timestamp&user=2'
     };
@@ -161,7 +161,7 @@ router.get('/Weight',function(req, res, next) {
 
 router.get('/WebWeight',function(req, res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=weight&order_by=-timestamp&user=2'
     };
@@ -187,7 +187,7 @@ router.get('/WebWeight',function(req, res, next) {
 
 router.get('/BloodPressure/LastValue', function(req,res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=blood_pressure&order_by=-timestamp&user=2'
     };
@@ -220,7 +220,7 @@ router.get('/BloodPressure/LastValue', function(req,res, next) {
 
 router.get('/BloodPressure',function(req, res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=blood_pressure&order_by=-timestamp&user=2'
     };
@@ -249,7 +249,7 @@ router.get('/BloodPressure',function(req, res, next) {
 
 router.get('/WebBloodPressure',function(req, res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=blood_pressure&order_by=-timestamp&user=2'
     };
@@ -286,14 +286,30 @@ router.post('/markAsDone/:id', function(req, res, next) {
         var id = parseInt(req.params.id);
 
         console.log(remId);
+        var timestamp = Math.floor(Date.now() / 1000);
 
-        var url = 'http://141.85.241.224:8008' +  '/api/v1/journal_entries/' + remId + '/';
+        var url = 'http://cami.vitaminsoftware.com:8010' +  '/api/v1/insertion/events/';
         console.log(url);
 
             request({
-               method: 'PATCH',
+               method: 'POST',
                uri: url,
-               json: {'acknowledged' : true}
+               json: {
+                   "category": "user_notifications",
+                   "content": {
+                       "name": "reminder_acknowledged",
+                       "value_type": "complex",
+                       "value": {
+                           "ack": "ok",
+                           "user": { "id": 2 },
+                           "journal": {"id": parseInt(remId)},
+                   }
+               },
+                "annotations": {
+                    "timestamp": timestamp,
+                    "source": "pepper_robot"
+                }
+            }
                
             }, function(error, request, body){
                console.log(body);
@@ -307,7 +323,7 @@ router.post('/markAsDone/:id', function(req, res, next) {
 
 router.get('/Reminders/Count', function(req, res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/journal_entries/?user=2'
     };
@@ -344,7 +360,7 @@ router.get('/Reminders/Count', function(req, res, next) {
 
 router.get('/RemindersCount', function(req, res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/journal_entries/?user=2'
     };
@@ -379,7 +395,7 @@ router.get('/RemindersCount', function(req, res, next) {
 router.get('/Reminders/:id', function(req,res,next)
 {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/journal_entries/?user=2'
     };
@@ -442,7 +458,7 @@ router.get('/Reminders/:id', function(req,res,next)
 
 router.get('/Reminders',function(req, res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/journal_entries/?user=2'
     };
@@ -486,7 +502,7 @@ router.get('/Reminders',function(req, res, next) {
 
 router.get('/WebReminders',function(req, res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/journal_entries/?user=2&acknowledged=none'
     };
@@ -516,7 +532,7 @@ router.get('/WebReminders',function(req, res, next) {
 router.get('/RemindersWeb',function(req, res, next) {
 
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/journal_entries/?user=2'
     };
@@ -561,7 +577,7 @@ router.get('/RemindersWeb',function(req, res, next) {
 router.get('/ReminderWebWidget',function(req, res, next) {
 
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/journal_entries/?user=2'
     };
@@ -594,7 +610,7 @@ router.get('/ReminderWebWidget',function(req, res, next) {
 
 router.get('/calc/CalcWeight', function(req,res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=weight&order_by=-timestamp&user=2'
     };
@@ -638,7 +654,7 @@ router.get('/calc/CalcWeight', function(req,res, next) {
 
 router.get('/calc/CalcHeartRate', function(req,res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=pulse&order_by=-timestamp&user=2'
     };
@@ -680,7 +696,7 @@ router.get('/calc/CalcHeartRate', function(req,res, next) {
 
 router.get('/calc/CalcBloodPressure', function(req,res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=blood_pressure&order_by=-timestamp&user=2'
     };
@@ -721,7 +737,7 @@ router.get('/calc/CalcBloodPressure', function(req,res, next) {
 
 router.get('/calc/CalcBloodPressureDiastolic', function(req,res, next) {
     var options = {
-        host: '141.85.241.224',
+        host: 'cami.vitaminsoftware.com',
         port: 8008,
         path: '/api/v1/measurement/?measurement_type=blood_pressure&order_by=-timestamp&user=2'
     };

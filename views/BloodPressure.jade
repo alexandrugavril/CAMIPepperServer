@@ -20,8 +20,9 @@ block content
             var backgroundColorS = [];
             var borderColorS = [];
             for (var i = 0; i < pData.length; i++) {
-                var t = new Date(pData[i].timestamp);
-                labs.push(t.toISOString());
+                var t = new Date(pData[i].timestamp*1000);
+                var formatted = t.getDate() + "." + (t.getMonth() + 1) + "." + t.getFullYear() + " " + ('0' + t.getHours()).slice(-2) + ':' + ('0' + t.getMinutes()).slice(-2);
+                labs.push(formatted);
                 diastolicValues.push(pData[i].value_info.diastolic);
                 backgroundColorD.push('rgba(255, 99, 132, 0.2)');
                 backgroundColorS.push('rgba(255, 99, 0, 0.2)');
