@@ -559,7 +559,7 @@ router.get('/RemindersWeb',function(req, res, next) {
                 }
             }
             if ((rems.length - nCnt) === 0) {
-                res.render('RemindersWeb', {count: "You do not have any new Reminder."});
+                res.render('RemindersWeb', {count: "You do not have any Reminders."});
                 //res.render('RemindersWeb', { count:rems.length - nCnt});
             }
             if ((rems.length - nCnt) === 1) {
