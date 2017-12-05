@@ -147,6 +147,13 @@ form{
   background-color: #6dab3c;
 }
 
+.sprowtop  {
+  min-height: 60vh;
+  background-color: white;
+  border-radius: 35px;
+  margin-bottom: 8vh;
+}
+
 .sprow  {
   min-height: 21vh;
   background-color: white;

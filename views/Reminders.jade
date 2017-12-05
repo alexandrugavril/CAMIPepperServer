@@ -31,7 +31,7 @@ block content
 
             if package.reminders && package.reminders.length !== 0
                 each rem in package.reminders
-                    div(class="sprow" onclick='submitForm()')
+                    div(class="sprowtop" onclick='submitForm()')
                         div(class="text-right2" )
                             form(id='reminderForm' name='reminder', action='/markAsDone/' + package.id, method='post')
                                 if package.id == -1
