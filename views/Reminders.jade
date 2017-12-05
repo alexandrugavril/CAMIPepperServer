@@ -50,6 +50,7 @@ block content
                                         form(name='next', action='/Reminders/' + (package.id + 1), method='get')
                                             input(id="#{rem.id}" class="imgsub2" type="image" src = "../images/btnNext.png" value="Next")
             else
-                h2= "No reminders"
+                div(class="sprow2")
+                    h2 No reminders
 
 

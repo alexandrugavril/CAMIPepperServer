@@ -154,6 +154,12 @@ form{
   margin-bottom: 8vh;
 }
 
+.sprow2 {
+  background-color: white;
+  border-radius: 35px;
+  margin-bottom: 8vh;
+}
+
 .text-right2 {
   width: 10%;
   position: absolute;
@@ -179,11 +185,11 @@ form{
 .imgsub2 {
 width: 10em;
 height: 10em;
-  opacity: 1;
+opacity: 1;
 }
 
 .textrem {
-  font-size: 7vh;
+  font-size: 6.6vh;
 }
 
 @media only screen and (max-width: 500px) {
