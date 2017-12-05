@@ -8,6 +8,19 @@ script.
     var reminders = !{JSON.stringify(package["reminders"])};
 
 block content
+    script(language="javascript").
+
+        window.onload = function (e)
+        {
+            // Create the event
+            var reminderDiv = document.getElementById("reminderValue").innerText;
+            console.log(reminderDiv);
+            var event = new CustomEvent("reminderNameChanged", {"reminder": reminderDiv});
+            // Dispatch/Trigger/Fire the event
+            document.dispatchEvent(event);
+        }
+
+
     table(class="col-md-12" style="width:100%")
         tr
             th
@@ -24,7 +37,7 @@ block content
                                     input(id="#{rem.id}" class="imgsub" name="var" type="image" src="../images/cancel1600.png" onclick='toggle("#{rem.id}")')
 
                                 input(id='remId', class='inputModal',type='text', name='remId', hidden='true', value='#{rem.id}')
-                    div(class="col-sm-6" style="padding-right:50px; padding-top:10px; padding-bottom:10px;")
+                    div(id="reminderValue" class="col-sm-6" style="padding-right:50px; padding-top:10px; padding-bottom:10px;")
                         font(size=20 style="text-align: bottom;vertical-align:text-bottom") #{rem.message}
 
                 if(package.id !== -1)
