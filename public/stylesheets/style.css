@@ -143,6 +143,49 @@ form{
     padding: 0px;
 }
 
+.newreminderpage {
+  background-color: #6dab3c;
+}
+
+.sprow  {
+  min-height: 21vh;
+  background-color: white;
+  border-radius: 35px;
+  margin-bottom: 8vh;
+}
+
+.text-right2 {
+  width: 10%;
+  position: absolute;
+  left: 3em !important;
+  top: 9.5vh !important;
+}
+
+.col-sm-6b {
+  width: 90% !important;
+  position: relative;
+  left: 6em !important;
+  top: 5.5vh;
+  text-align: center;
+}
+
+.col-sm-6c {
+  width: 93% !important;
+  position: relative;
+  left: 3em !important;
+  top: 3vh;
+}
+
+.imgsub2 {
+width: 10em;
+height: 10em;
+  opacity: 1;
+}
+
+.textrem {
+  font-size: 7vh;
+}
+
 @media only screen and (max-width: 500px) {
     .smartnotifclass h5 {
         font-size: 10vw;

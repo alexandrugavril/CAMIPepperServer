@@ -8,6 +8,7 @@ script.
     var reminders = !{JSON.stringify(package["reminders"])};
 
 block content
+    body.newreminderpage
     table(class="col-md-12" style="width:100%")
         tr
             th
@@ -15,30 +16,30 @@ block content
 
         if package.reminders && package.reminders.length !== 0
             each rem in package.reminders
-                div(class="row")
-                    div(class="text-right" )
+                div(class="sprow")
+                    div(class="text-right2" )
                             form(name='reminder', action='/markAsDone/' + (package.id - 1), method='post')
                                 if package.id == -1
-                                    input(id="#{rem.id}" class="imgsub" name="var" type="image" src="./images/cancel1600.png" onclick='toggle("#{rem.id}")')
+                                    input(id="#{rem.id}" class="imgsub2" name="var" type="image" src="./images/cancel1600.png" onclick='toggle("#{rem.id}")')
                                 else
-                                    input(id="#{rem.id}" class="imgsub" name="var" type="image" src="../images/cancel1600.png" onclick='toggle("#{rem.id}")')
+                                    input(id="#{rem.id}" class="imgsub2" name="var" type="image" src="../images/cancel1600.png" onclick='toggle("#{rem.id}")')
 
                                 input(id='remId', class='inputModal',type='text', name='remId', hidden='true', value='#{rem.id}')
-                    div(class="col-sm-6" style="padding-right:50px; padding-top:10px; padding-bottom:10px;")
-                        font(size=20 style="text-align: bottom;vertical-align:text-bottom") #{rem.message}
+                    div(class="col-sm-6b" style="padding-right:50px; padding-top:10px; padding-bottom:10px;")
+                        font(class= "textrem" style="text-align: bottom;vertical-align:text-bottom") #{rem.message}
 
                 if(package.id !== -1)
-                    div(class="row")
-                        div(class="col-sm-6" style="padding-right:50px; padding-top:10px; padding-bottom:10px;")
+                    div(class="sprow")
+                        div(class="col-sm-6c" style="padding-right:50px; padding-top:10px; padding-bottom:10px;")
 
                             if(package.id !== 0)
                                 div(class="col-sm-4" style="display:inline;")
                                     form(name='previous', action='/Reminders/' + (package.id - 1), method='get')
-                                        input(id="#{rem.id}" type="submit" value="Previous" style="margin-left:-2em !important")
+                                        input(id="#{rem.id}" class="imgsub2" type="image" src = "../images/btnBack.png" value="Previous" style="margin-left:-2em !important")
                             if(package.id < package.last)
                                 div(class="col-sm-4" style="display:inline;float:right")
                                     form(name='next', action='/Reminders/' + (package.id + 1), method='get')
-                                        input(id="#{rem.id}" type="submit" value="Next")
+                                        input(id="#{rem.id}" class="imgsub2" type="image" src = "../images/btnNext.png" value="Next")
         else
             h2= "No reminders"
 
