@@ -418,7 +418,15 @@ router.get('/Reminders/:id', function(req,res,next)
                 }
 
                 var cRems = [];
-                cRems.push(remindersNotSeen[id]);
+                if(remindersNotSeen.length !== 0)
+                {
+                    if(id < 0)
+                        cRems.push(remindersNotSeen[0]);
+                    else if(id > remindersNotSeen.length - 1)
+                        cRems.push(remindersNotSeen[remindersNotSeen.length - 1]);
+                    else
+                        cRems.push(remindersNotSeen[id]);
+                }
 
                 var package = {"id": id, "reminders": cRems, "last": remindersNotSeen.length - 1};
                 res.render('Reminders', { title: 'Reminders', package:package});
