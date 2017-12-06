@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var http = require('http');
+var urlLib = require('url');
 
 
 /* GET home page. */
@@ -316,7 +317,16 @@ router.post('/markAsDone/:id', function(req, res, next) {
                if(id === -1)
                    res.redirect('/Reminders');
                 else
-                    res.redirect('/Reminders/' + id);
+               {
+                   setTimeout(function f(){
+                       res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+                       var u = urlLib.parse(req.get('Referrer'), true, false);
+                       u.query['v'] = +new Date(); // add versioning to bust cache
+                       delete u.search;
+                       console.log(urlLib.format(u));
+                       res.redirect(urlLib.format(u));
+                   }, 500);
+               }
             });
     }
 });
@@ -437,9 +447,9 @@ router.get('/Reminders/:id', function(req,res,next)
                 if(remindersNotSeen.length !== 0)
                 {
                     if(id < 0)
-                        cRems.push(remindersNotSeen[0]);
-                    else if(id > remindersNotSeen.length - 1)
                         cRems.push(remindersNotSeen[remindersNotSeen.length - 1]);
+                    else if(id > remindersNotSeen.length - 1)
+                        cRems.push(remindersNotSeen[0]);
                     else
                         cRems.push(remindersNotSeen[id]);
                 }
