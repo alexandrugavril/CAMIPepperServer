@@ -225,7 +225,7 @@ opacity: 1;
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
 .textrem {
     font-size: 24px;
-  } 
+  }
   .col-sm-6b {
     width: 70% !important;
     position: relative;

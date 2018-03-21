@@ -1,0 +1,61 @@
+extends layout
+
+link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+link(rel='stylesheet', href='/stylesheets/style.css')
+script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+script.
+    var reminders = !{JSON.stringify(package["reminders"])};
+
+block content
+    body.newreminderpage
+        script(language="javascript").
+            window.onload = function (e)
+            {
+                // Create the event
+                var reminderDiv = document.getElementById("reminderValue").innerText;
+                console.log(reminderDiv);
+                var event = new CustomEvent("reminderNameChanged", {"reminder": reminderDiv});
+                // Dispatch/Trigger/Fire the event
+                document.dispatchEvent(event);
+            }
+            function submitForm() {
+                document.getElementById("reminderForm").submit();
+            }
+
+
+        table(class="col-md-12" style="width:100%")
+            tr
+                th
+                th
+
+            if package.reminders && package.reminders.length !== 0
+                each rem in package.reminders
+                    div(class="sprowtop" onclick='submitForm()')
+                        div(class="text-right2" )
+                            form(id='reminderForm' name='reminder', action='/markAsDone/' + package.id, method='post')
+                                if package.id == -1
+                                    input(id="#{rem.id}" class="imgsub2" name="var" type="image" src="./images/cancel1600.png" onclick='toggle("#{rem.id}")')
+                                else
+                                    input(id="#{rem.id}" class="imgsub2" name="var" type="image" src="../images/cancel1600.png" onclick='toggle("#{rem.id}")')
+
+                                input(id='remId', class='inputModal',type='text', name='remId', hidden='true', value='#{rem.id}')
+                        div(id="reminderValue" class="col-sm-6b" style="padding-right:50px; padding-top:10px; padding-bottom:10px;")
+                            font(class= "textrem" style="text-align: bottom;vertical-align:text-bottom") #{rem.message}
+                    if(package.id !== -1)
+                        div(class="sprow")
+                            div(class="col-sm-6c" style="padding-right:50px; padding-top:10px; padding-bottom:10px;")
+
+                                if(package.id !== 0)
+                                    div(class="col-sm-4" style="display:inline;")
+                                        form(name='previous', action='/RemindersWebApp/' + (package.id - 1), method='get')
+                                            input(id="#{rem.id}" class="imgsub2" type="image" src = "../images/btnBack.png" value="Previous" style="margin-left:-2em !important")
+                                if(package.id < package.last)
+                                    div(class="col-sm-4" style="display:inline;float:right")
+                                        form(name='next', action='/RemindersWebApp/' + (package.id + 1), method='get')
+                                            input(id="#{rem.id}" class="imgsub2" type="image" src = "../images/btnNext.png" value="Next")
+            else
+                div(class="sprow2")
+                    h2 No reminders
+
+

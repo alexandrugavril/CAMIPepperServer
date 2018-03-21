@@ -402,6 +402,70 @@ router.get('/RemindersCount', function(req, res, next) {
     });
 });
 
+router.get('/RemindersWebApp/:id', function(req,res,next)
+{
+    var options = {
+        host: 'cami.vitaminsoftware.com',
+        port: 8008,
+        path: '/api/v1/journal_entries/?user=2'
+    };
+    console.log(JSON.stringify(req.body));
+
+    console.log(JSON.stringify(req.params));
+    if(req.params && req.params.id) {
+        var id = parseInt(req.params.id);
+
+        var req = http.get(options, function(response) {
+            console.log('STATUS: ' + response.statusCode);
+            console.log('HEADERS: ' + JSON.stringify(response.headers));
+            // Buffer the body entirely for processing as a whole.
+            var bodyChunks = [];
+            response.on('data', function(chunk) {
+                // You can process streamed parts here...
+                bodyChunks.push(chunk);
+            }).on('end', function() {
+                var body = Buffer.concat(bodyChunks);
+
+                var reqBody = JSON.parse(body);
+                var rems = reqBody.objects;
+
+                console.log(reqBody);
+                var remindersNotSeen = [];
+                var cnt = 0;
+                var nCnt = 0;
+
+                for (var i = 0; i < rems.length; i++) {
+                    if (rems[i].acknowledged === true || rems[i].acknowledged === false) {
+                        nCnt = nCnt + 1;
+                    }
+                    else {
+                        remindersNotSeen.push(rems[i]);
+                    }
+                }
+
+                var cRems = [];
+                if(remindersNotSeen.length !== 0)
+                {
+                    if(id < 0)
+                        cRems.push(remindersNotSeen[remindersNotSeen.length - 1]);
+                    else if(id > remindersNotSeen.length - 1)
+                        cRems.push(remindersNotSeen[0]);
+                    else
+                        cRems.push(remindersNotSeen[id]);
+                }
+
+                var package = {"id": id, "reminders": cRems, "last": remindersNotSeen.length - 1};
+                res.render('RemindersWebApp', { title: 'Reminders', package:package});
+            })
+        });
+
+        req.on('error', function(e) {
+            console.log('ERROR: ' + e.message);
+        });
+    }
+
+});
+
 router.get('/Reminders/:id', function(req,res,next)
 {
     var options = {
@@ -731,7 +795,7 @@ router.get('/calc/CalcBloodPressure', function(req,res, next) {
             if (diffwval < 0) {
                 res.render('calc/CalcBloodPressure', {title: 'Systolic Blood Pressure',lastValue: "Your Systolic Blood Pressure increased by " + (-diffwval) + " bp."});
             }
-            if (diffwval == 0) {
+            if (diffwval === 0) {
                 res.render('calc/CalcBloodPressure', {title: 'Systolic Blood Pressure',lastValue: "Your Systolic Blood Pressure is stable."});
             }
             if (diffwval > 0) {
@@ -772,9 +836,8 @@ router.get('/calc/CalcBloodPressureDiastolic', function(req,res, next) {
             if (diffwval < 0) {
                 res.render('calc/CalcBloodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure increased by " + (-diffwval) + " bp."});
             }
-            if (diffwval == 0) {
-                res.render('calc/CalcBl' +
-                    'oodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure is stable."});
+            if (diffwval === 0) {
+                res.render('calc/CalcBloodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure is stable."});
             }
             if (diffwval > 0) {
                 res.render('calc/CalcBloodPressureDiastolic', {title: 'Diastolic Blood Pressure',lastValue: "Your Diastolic Blood Pressure decreased by " + (diffwval) + " bp."});
