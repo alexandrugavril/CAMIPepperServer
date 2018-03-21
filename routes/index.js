@@ -69,6 +69,65 @@ router.get('/HeartRate',function(req, res, next) {
     });
 });
 
+router.get('/Steps',function(req, res, next) {
+    var options = {
+        host: 'cami.vitaminsoftware.com',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=steps&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+            var hrData = reqBody.measurements;
+            console.log(hrData);
+            res.render('Steps', { title: 'Steps', plotData:hrData});
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+});
+
+
+router.get('/Sleep',function(req, res, next) {
+    var options = {
+        host: 'cami.vitaminsoftware.com',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=sleep&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
+
+            var reqBody = JSON.parse(body);
+            var hrData = reqBody.measurements;
+            console.log(hrData);
+            res.render('Sleep', { title: 'Sleep', plotData:hrData});
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+});
+
 router.get('/WebHeartRate',function(req, res, next) {
     var options = {
         host: 'cami.vitaminsoftware.com',
