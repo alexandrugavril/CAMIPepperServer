@@ -240,7 +240,7 @@ router.get('/Weight/LastValue', function(req,res, next) {
             var wData = reqBody.measurements;
             console.log(wData);
             var lastValue = reqBody.measurements[0].value_info;
-            var lasValue2= (lastValue.value - 0.000).toFixed(3);
+            var lasValue2= (lastValue.value - 0.000).toFixed(2);
             res.render('lastValuePages/WeightLastValue', {title: 'Weight', lastValue2: lasValue2});
         })
     });
