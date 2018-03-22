@@ -99,7 +99,8 @@ form{
 }
 
 .lastvalueclass h5 {
-  font-size: 15vw;
+  font-size: 16px;
+  line-height: 26px;
   text-align: center;
   font-weight: bold;
   margin-top: 0px;
