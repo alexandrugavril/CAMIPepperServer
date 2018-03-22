@@ -123,9 +123,10 @@ form{
 
 .smartnotifclass {
   padding: 0px;
-  font: 1.5em "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
   border: 0px;
   margin: 0px;
+  line-height: 26px;
 }
 
 .smartnotifclass h5 {
