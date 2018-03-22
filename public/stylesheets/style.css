@@ -130,8 +130,10 @@ form{
 }
 
 .smartnotifclass h5 {
-  font-size: 5vw;
+  font-size: 50px;
+  line-height: 60px;
   text-align: center;
+  vertical-align: middle;
   font-weight: bold;
   margin-top: 0px;
   margin-bottom: 0px;
