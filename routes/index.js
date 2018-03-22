@@ -68,7 +68,37 @@ router.get('/HeartRate',function(req, res, next) {
         console.log('ERROR: ' + e.message);
     });
 });
+router.get('/Steps/LastValue', function(req,res, next) {
+    var options = {
+        host: 'cami.vitaminsoftware.com',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=steps&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
 
+            var reqBody = JSON.parse(body);
+
+            var wData = reqBody.measurements;
+            console.log(wData);
+            var lastValue = reqBody.measurements[0].value_info;
+            var lasValue2= (lastValue.value - 0.000).toFixed(0);
+            res.render('lastValuePages/StepsLastValue', {title: 'Steps', lastValue2: lasValue2});
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+});
 router.get('/Steps',function(req, res, next) {
     var options = {
         host: 'cami.vitaminsoftware.com',
@@ -98,7 +128,37 @@ router.get('/Steps',function(req, res, next) {
     });
 });
 
+router.get('/Sleep/LastValue', function(req,res, next) {
+    var options = {
+        host: 'cami.vitaminsoftware.com',
+        port: 8008,
+        path: '/api/v1/measurement/?measurement_type=sleep&order_by=-timestamp&user=2'
+    };
+    var req = http.get(options, function(response) {
+        console.log('STATUS: ' + response.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(response.headers));
+        // Buffer the body entirely for processing as a whole.
+        var bodyChunks = [];
+        response.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks.push(chunk);
+        }).on('end', function() {
+            var body = Buffer.concat(bodyChunks);
 
+            var reqBody = JSON.parse(body);
+
+            var wData = reqBody.measurements;
+            console.log(wData);
+            var lastValue = reqBody.measurements[0].value_info;
+            var lasValue2= (lastValue.value - 0.000).toFixed(0);
+            res.render('lastValuePages/SleepLastValue', {title: 'Sleep', lastValue2: lasValue2});
+        })
+    });
+
+    req.on('error', function(e) {
+        console.log('ERROR: ' + e.message);
+    });
+});
 router.get('/Sleep',function(req, res, next) {
     var options = {
         host: 'cami.vitaminsoftware.com',
@@ -277,6 +337,8 @@ router.get('/BloodPressure/LastValue', function(req,res, next) {
         console.log('ERROR: ' + e.message);
     });
 });
+
+
 
 router.get('/BloodPressure',function(req, res, next) {
     var options = {
