@@ -369,6 +369,49 @@ router.get('/BloodPressure',function(req, res, next) {
     });
 });
 
+function getRandomEvent() {
+    var eventTypes = ["move", "hello"];
+    var persons = [
+        {
+            "person_id": 0,
+            "person_name": "Alex"
+        },
+        {
+            "person_id": 1,
+            "person_name": "Miruna"
+        },
+        {
+            "person_id": 2,
+            "person_name": "Stefania"
+        },
+        {
+            "person_id": 3,
+            "person_name": "Alex"
+        }
+    ];
+    var eventType = Math.floor(Math.random() * (eventTypes.length));
+    var chosenPerson = Math.floor(Math.random() * (persons.length));
+
+    return {
+        "type" : eventTypes[eventType],
+        "person_id": persons[chosenPerson].person_id,
+        "person_name": persons[chosenPerson].person_name
+    };
+}
+
+router.get('/Events',function(req, res, next) {
+    var events = [];
+
+    var noOfEvents = 1 + Math.floor(Math.random() * 3);
+
+    for(var i = 0 ; i < noOfEvents; i++)
+    {
+        events.push(getRandomEvent());
+    }
+
+    res.send(JSON.stringify(events));
+});
+
 router.get('/WebBloodPressure',function(req, res, next) {
     var options = {
         host: 'cami.vitaminsoftware.com',
